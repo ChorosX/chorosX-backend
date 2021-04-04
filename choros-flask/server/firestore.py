@@ -92,15 +92,16 @@ class SatelliteListById(Resource):
         return sat_ref.get().to_dict(), 201
 
     def get(self, satId):
+        args = parser.parse_args()
         currentSatData = getSatellite(satId)
-        print(currentSatData)
-        doc_ref = db.collection('satellites').document(satId)
-        # print(satId)
-        if doc_ref:
-            print(doc_ref.get())
-            return doc_ref.get().to_dict()
-
-        return None
+        print(args)
+        sat_ref = db.collection('satellites').document(satId)
+        longitude = currentSatData.get('longitude')
+        latitude = currentSatData.get('latitude')
+        print(longitude)
+        sat_ref.update(
+            {u'longitude': firestore.ArrayUnion([str(longitude)]), u'latitude': firestore.ArrayUnion([str(latitude)])})
+        return sat_ref.get().to_dict(), 201
 
     def delete(self, taskid):
         sat_ref = db.collection('satellites')

@@ -16,36 +16,28 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
 
-
-def satellite(id):
-    print("Sat data was requested")
-    response = requests.get('https://api.n2yo.com/rest/v1/satellite/positions/' +
-                            str(id) + '/0/0/0/2/&apiKey=ZVZQAW-QN6CAQ-FUR8SR-4O4V')
-
-    # make a record in firebase
-
-    [response.json()['info']['satname'], response.json()['positions'][0]
-     ['satlatitude'], response.json()['positions'][0]['satlongitude']]
-
+satellites = [20580,
+                25544,
+                25994,
+                26871,
+                27386,
+                28790,
+                29155,
+                31135,
+                33591,
+                37849,
+                39444,
+                40967,
+                41759,
+                42738,
+                42740,
+                ]
 
 while True:
-    satellite(25544)
+    for satID in satellites:
+        requests.get('http://127.0.0.1:5000/satellites/' + str(satID))
+        print(str(satID) + ' updated')
     time.sleep(60)
-
-
-while True:
-    satellite(20580)
-    time.sleep(60)
-
-
-@app.route('/satdata/<id>', methods=['GET'])
-@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
-def iss(id):
-    print("Sat data was requested")
-    response = requests.get('https://jsonplaceholder.typicode.com/todos/1')
-    # dummy for now
-    return jsonify(response)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
