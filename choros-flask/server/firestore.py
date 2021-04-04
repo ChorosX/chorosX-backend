@@ -86,6 +86,15 @@ class SatelliteList(Resource):
         return satellite.to_sat(), 201
 
 
+class StaticSatelliteById(Resource):
+    def get(self, satId):
+        args = parser.parse_args()
+        sat_ref = db.collection('satellites').document(satId)
+        if sat_ref:
+            return sat_ref.get().to_dict()
+        return None
+
+
 class SatelliteListById(Resource):
     def put(self, satId):
         args = parser.parse_args()
@@ -119,6 +128,7 @@ class SatelliteListById(Resource):
 
 api.add_resource(SatelliteList, '/satellites')
 api.add_resource(SatelliteListById, '/satellites/<satId>')
+api.add_resource(StaticSatelliteById, '/satitcSatellite/<satId>')
 
 
 if __name__ == '__main__':
