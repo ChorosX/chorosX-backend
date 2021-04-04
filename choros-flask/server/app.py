@@ -37,7 +37,7 @@ while True:
     for satID in satellites:
         requests.get('http://127.0.0.1:5000/satellites/' + str(satID))
         print(str(satID) + ' updated')
-    time.sleep(60)
+    time.sleep(15)
 
 if __name__ == '__main__':
     app.run(debug=True)

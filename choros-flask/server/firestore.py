@@ -1,4 +1,5 @@
 import os
+from flask_cors import CORS, cross_origin
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, abort, reqparse
 from firebase_admin import credentials, firestore, initialize_app
@@ -11,6 +12,13 @@ import firebase
 db = firestore.Client()
 firestoreApp = Flask(__name__)
 api = Api(firestoreApp)
+
+cors = CORS(firestoreApp, resources={r"/foo": {"origins": "*"}})
+firestoreApp.config['CORS_HEADERS'] = 'Content-Type'
+firestoreApp.config.from_object(__name__)
+
+# enable CORS
+CORS(firestoreApp, resources={r'/*': {'origins': '*'}})
 
 
 parser = reqparse.RequestParser()
