@@ -1,2 +1,7 @@
 choros-flask/server/env
 choros-flask/env
+key.json
+firebasechorusXKey.json
+
+**.envScriptsactivate
+dockerfile
