@@ -18,6 +18,9 @@ parser.add_argument('longitude', action='append')
 parser.add_argument('latitude', action='append')
 parser.add_argument('satId')
 parser.add_argument('satName')
+parser.add_argument('satDescription')
+parser.add_argument('pictureUrl')
+parser.add_argument('launchDate')
 
 
 def getSatellite(satID):
@@ -31,23 +34,29 @@ def getSatellite(satID):
 
 
 class Satellite(object):
-    def __init__(self, satName, satId, latitude=[], longitude=[]):
+    def __init__(self, satName, satId, description, pictureUrl, launchDate, latitude=[], longitude=[], ):
         self.satName = satName
         self.satId = satId
         self.latitude = latitude
         self.longitude = longitude
+        self.description = description
+        self.pictureUrl = pictureUrl
+        self.launchDate = launchDate
 
     def to_sat(self):
         satellite = {
             'satId': self.satId,
             'satName': self.satName,
             'latitude': self.latitude,
-            'longitude': self.longitude
+            'longitude': self.longitude,
+            'description': self.description,
+            'pictureUrl': self.pictureUrl,
+            'launchDate': self.launchDate
         }
         return satellite
 
     def __repr__(self):
-        return 'Satellite(name={}, Satellite ID = {}, Satilite Longitude = {} , Satellite Latitdue = {})'.format(self.satName, self.satId, self.latitude, self.longitude)
+        return 'Satellite(name={}, Satellite ID = {}, Satilite Longitude = {} , Satellite Latitdue = {}, Satellite Description = {} , Satellite Picture = {})'.format(self.satName, self.satId, self.latitude, self.longitude, self.description)
 
 
 class SatelliteList(Resource):
@@ -67,17 +76,6 @@ class SatelliteList(Resource):
         satId = satellite.satId
         db.collection(u'satellites').document(satId).set(satellite.to_sat())
         return satellite.to_sat(), 201
-
-
-# class SatelliteLongLat(Resource):
-#     def get(self):
-#         doc_ref = db.collection('satellites').document(
-#             '25544').collection('latlong')
-#         docs = doc_ref.stream()
-#         longLatList = {}
-#         for doc in docs:
-#             longLatList[doc.id] = doc.to_dict()
-#         return longLatList
 
 
 class SatelliteListById(Resource):
