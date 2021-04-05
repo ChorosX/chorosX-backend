@@ -1,8 +1,6 @@
 # chorosX-backend
-this is the repository for our web application ChorosX. ChorosX is a live satellite treacking application using Three.js, React.js, and Flask. This repository was made to hold the code containing the back-end of our web application. 
-
-This applciation was created for the MataHacks Hackathon 2021. We won first place. 
-
+ChorosX: a live satellite tracking web application built with React.js, Three.js, and Flask. This repository was made to hold the code containing the front end of the application.
+This project was created during the MataHacks Hackathon 2021. ChorosX took the 1st place
 
 https://cdn.discordapp.com/attachments/818394019619930112/828432188294692874/Screenshot_5.jpg
 https://media.discordapp.net/attachments/818394019619930112/828432187942633522/Screenshot_4.jpg?width=998&height=504
