@@ -7,7 +7,7 @@ import time
 import requests
 from google.cloud import firestore
 import firebase
-
+from app import appRun
 
 db = firestore.Client()
 firestoreApp = Flask(__name__)
@@ -133,3 +133,4 @@ api.add_resource(StaticSatelliteById, '/satitcSatellite/<satId>')
 
 if __name__ == '__main__':
     firestoreApp.run(debug=True)
+    appRun()
