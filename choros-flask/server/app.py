@@ -6,17 +6,18 @@ import time
 
 # configuration
 DEBUG = True
-
-# instantiate the app
 app = Flask(__name__)
 cors = CORS(app, resources={r"/foo": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config.from_object(__name__)
+def appRun():
+    # instantiate the app
+    
 
-# enable CORS
-CORS(app, resources={r'/*': {'origins': '*'}})
+    # enable CORS
+    CORS(app, resources={r'/*': {'origins': '*'}})
 
-satellites = [20580,
+    satellites = [20580,
                 25544,
                 25994,
                 26871,
@@ -33,11 +34,11 @@ satellites = [20580,
                 42740,
                 ]
 
-while True:
-    for satID in satellites:
-        requests.get('http://127.0.0.1:5000/satellites/' + str(satID))
-        print(str(satID) + ' updated')
-    time.sleep(15)
+    while True:
+        for satID in satellites:
+            requests.get('http://127.0.0.1:5000/satellites/' + str(satID))
+            print(str(satID) + ' updated')
+        time.sleep(15)
 
-if __name__ == '__main__':
+    #if __name__ == '__main__':
     app.run(debug=True)
